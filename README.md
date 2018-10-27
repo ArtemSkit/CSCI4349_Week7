@@ -12,15 +12,15 @@ Time spent: **15** hours spent in total
     - [Detailed description](https://www.exploit-db.com/exploits/36844/)
     - Tested in version: 4.2
     - Fixed in version: 4.2.1
-  - ![GIF Walkthrough](./img/WP_<=_4.2_Unauthenticated_Stored_XSS.gif)
+    ![GIF Walkthrough](./img/1.gif)
   - [ ] Steps to recreate: 
-     - From the main page click on the post with open comments
+     - From the main page click on the post with open comments section
      - Scroll to the comment form and fill the fields
         - In the comment content field paste (the comment has to be at least 64kb long): 
             ```html
                 <a title='x onmouseover=alert(unescape(/hello%20world/.source)) style=position:absolute;left:0;top:0;width:5000px;height:5000px  AAAAA...[64kb]..AAA'></a>
             ```
-    - Post it and get approval from the admin if required
+    - Post it and get approval from the admin
     - Visit the page with your comment posted
   - [ ] Affected source code:
     - [tags/4.9.8/src/wp-includes/comment.php](https://core.trac.wordpress.org/browser/tags/4.9.8/src/wp-includes/comment.php#L0)
