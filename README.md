@@ -119,9 +119,9 @@ Time spent: **27+** hours spent in total
 
 ## Assets
 
-<a href="./plugins_repo/google-mp3-audio-player.zip" target="_blank">A plugin</a>for vulnerability #2.
-<a href="./plugins_repo/work-the-flow-file-upload.2.5.2.zip" target="_blank">A plugin</a>for vulnerability #5.
-<a href="./shell_scripts/shell.php" target="_blank">Shell script</a> for vulnerability #5.
+  - <a href="./plugins_repo/google-mp3-audio-player.zip" target="_blank">A plugin</a> for vulnerability #2.
+  - <a href="./plugins_repo/work-the-flow-file-upload.2.5.2.zip" target="_blank">A plugin</a> for vulnerability #5.
+  - <a href="./shell_scripts/shell.php" target="_blank">Shell script</a> for vulnerability #5.
 
 ## Resources
 
